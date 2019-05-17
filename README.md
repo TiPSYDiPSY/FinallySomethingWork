@@ -33,7 +33,8 @@ Example response:
 }
 ```
 ## GET /palindrome/history
-Example response:
+Example response:  
+**ORDERED BY ID**
 ```
 [
     {
