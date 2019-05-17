@@ -98,11 +98,12 @@ class History(Resource):
     def get(self):
         conn = lite.connect('Palindrome.db')
         c = conn.cursor()
-        c.execute('SELECT * FROM (SELECT * FROM palindromes DESC LIMIT 10)')
+        c.execute('SELECT * FROM palindromes ORDER BY id DESC LIMIT 10')
         rows = c.fetchall()
 
         result = []
         for row in rows:
+
             send = {'id': row[0], 'date': row[1], 'value': row[2], 'is_palindrome': row[3]}
             result.append(send)
 
