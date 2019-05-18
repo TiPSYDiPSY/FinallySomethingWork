@@ -98,14 +98,17 @@ class History(Resource):
     def get(self):
         conn = lite.connect('Palindrome.db')
         c = conn.cursor()
-        c.execute('SELECT * FROM palindromes ORDER BY id DESC LIMIT 10')
+        c.execute('SELECT * FROM palindromes')
         rows = c.fetchall()
 
         result = []
-        for row in rows:
-
+        i = 0
+        for row in reversed(rows):
+            if i == 10:
+                break
             send = {'id': row[0], 'date': row[1], 'value': row[2], 'is_palindrome': row[3]}
             result.append(send)
+            i = i + 1
 
         return jsonify(result)
 
