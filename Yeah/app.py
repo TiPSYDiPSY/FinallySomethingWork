@@ -98,8 +98,7 @@ class History(Resource):
     def get(self):
         conn = lite.connect('Palindrome.db')
         c = conn.cursor()
-        c.execute('SELECT * FROM palindromes')
-        rows = c.fetchall()
+        c.execute('SELECT * FROM palindromes'); rows = c.fetchall()
 
         result = []
         i = 0
