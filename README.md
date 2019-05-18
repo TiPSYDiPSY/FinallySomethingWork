@@ -34,7 +34,6 @@ Example response:
 ```
 ## GET /palindrome/history
 Example response:  
-**ORDERED BY ID**
 ```
 [
     {
