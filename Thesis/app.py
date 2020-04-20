@@ -52,18 +52,18 @@ class Palindrome(Resource):
                 n = n // 10
 
             if temp == rev:
-                DatabaseRequest(generateUUID(), value, True)
+                DatabaseRequest(value, True)
                 return {'is_palindrome': True}
             else:
-                DatabaseRequest(generateUUID(), value, False)
+                DatabaseRequest( value, False)
                 return {'is_palindrome': False}
 
         ans = isPalindrome(value)
         if ans == 1:
-            DatabaseRequest(generateUUID(), value, True)
+            DatabaseRequest(value, True)
             return {'is_palindrome': True}
         else:
-            DatabaseRequest(generateUUID(), value, False)
+            DatabaseRequest(value, False)
             return {'is_palindrome': False}
 
 
@@ -71,21 +71,14 @@ class Palindrome(Resource):
 def connection():
     return lite.connect('Palindrome.db')
 
-def currentTime():
-    return time.asctime(time.localtime(time.time()))
 
-
-def DatabaseRequest(id, value, is_palindrome):
+def DatabaseRequest(value, is_palindrome):
     conn = connection()
     c = conn.cursor()
     c.execute("INSERT INTO palindromes(id, date, value, is_palindrome) VALUES(?,?,?,?)",
-            (str(id), str(currentTime()), str(value), str(is_palindrome)))
+            (str(uuid.uuid4()), str(time.asctime(time.localtime(time.time()))), str(value), str(is_palindrome)))
     conn.commit()
     conn.close()
-
-
-def generateUUID():
-    return uuid.uuid4()
 
 
 def reverse(s):
